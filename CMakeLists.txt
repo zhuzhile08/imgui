@@ -20,12 +20,11 @@ set(CMAKE_BUILD_TYPE DEBUG)
 set(CMAKE_CXX_STANDARD 20)
 
 # find path to libraries
-find_package(SDL2 REQUIRED)
 find_package(Vulkan REQUIRED)
 
 include_directories(ImGui Private
 	${CMAKE_CURRENT_SOURCE_DIR}
-	${SDL2_INCLUDE_DIRS}
+	${LIBRARY_PATH}/sdl2/include
 	Vulkan::Headers
 )
 
@@ -40,7 +39,7 @@ add_library(ImGui
 	"backends/imgui_impl_sdl.cpp"
 )
 
-target_link_libraries(ImGui PRIVATE SDL2::SDL2 Vulkan::Vulkan)
+target_link_libraries(ImGui PRIVATE sdl2 Vulkan::Vulkan)
 
 target_precompile_headers(ImGui
 PRIVATE
