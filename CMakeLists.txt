@@ -39,7 +39,12 @@ add_library(ImGui
 	"backends/imgui_impl_sdl.cpp"
 )
 
-target_link_libraries(ImGui PRIVATE sdl2 Vulkan::Vulkan)
+target_link_libraries(ImGui 
+PRIVATE 
+	Vulkan::Vulkan
+	SDL2::SDL2-static
+	SDL2::SDL2main
+)
 
 target_precompile_headers(ImGui
 PRIVATE
