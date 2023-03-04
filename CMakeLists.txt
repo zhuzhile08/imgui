@@ -36,7 +36,7 @@ add_library(ImGui
 	"imgui_tables.cpp"
 	"imgui_widgets.cpp"
 	"backends/imgui_impl_vulkan.cpp"
-	"backends/imgui_impl_sdl.cpp"
+	"backends/imgui_impl_sdl2.cpp"
 )
 
 target_link_libraries(ImGui 
