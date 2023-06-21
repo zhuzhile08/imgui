@@ -29,7 +29,7 @@ include_directories(ImGui Private
 )
 
 # compile libraries
-add_library(ImGui
+add_library(ImGui STATIC
 	"imgui.cpp"
 	"imgui_demo.cpp"
 	"imgui_draw.cpp"
@@ -42,8 +42,7 @@ add_library(ImGui
 target_link_libraries(ImGui 
 PRIVATE 
 	Vulkan::Vulkan
-	SDL2::SDL2-static
-	SDL2::SDL2main
+	SDL2
 )
 
 target_precompile_headers(ImGui
