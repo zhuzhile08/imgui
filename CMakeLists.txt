@@ -36,7 +36,7 @@ add_library(ImGui STATIC
 	"imgui_tables.cpp"
 	"imgui_widgets.cpp"
 	"backends/imgui_impl_vulkan.cpp"
-	"backends/imgui_impl_sdl.cpp"
+	"backends/imgui_impl_sdl2.cpp"
 	"backends/imgui_impl_sdlrenderer.cpp"
 )
 
