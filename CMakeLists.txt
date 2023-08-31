@@ -38,6 +38,7 @@ add_library(ImGui STATIC
 	"backends/imgui_impl_vulkan.cpp"
 	"backends/imgui_impl_sdl2.cpp"
 	"backends/imgui_impl_sdlrenderer2.cpp"
+	"misc/cpp/imgui_stdlib.cpp"
 )
 
 target_link_libraries(ImGui 
