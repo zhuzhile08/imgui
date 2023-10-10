@@ -13,11 +13,8 @@
 ############################################################
 
 cmake_minimum_required(VERSION 3.22.0)
-project(ImGui VERSION 1.8.8)
 
-# set default to debug
-set(CMAKE_BUILD_TYPE DEBUG)
-set(CMAKE_CXX_STANDARD 20)
+project(ImGui VERSION 1.8.8)
 
 # find path to libraries
 find_package(Vulkan REQUIRED)
@@ -49,24 +46,28 @@ PRIVATE
 
 target_precompile_headers(ImGui
 PRIVATE
-	<vector>
-	<iostream>
-	<fstream>
-	<deque>
-	<string>
-	<map>
-	<unordered_map>
-	<array>
-	<functional>
-	<cmath>
 	<algorithm>
-	<limits.h>
-	<utility>
-	<stdint.h>
-	<ctype.h>
-	<stdio.h>
-	<stdlib.h>
+	<array>
+	<chrono>
+	<cmath>
+	<cstdio>
+	<cstdlib>
+	<deque>
+	<filesystem>
+	<fstream>
+	<functional>
+	<iostream>
+	<map>
+	<set>
 	<stddef.h>
+	<stdexcept>
 	<stdint.h>
-	<math.h>
+	<string>
+	<string_view>
+	<type_traits>
+	<unordered_map>
+	<unordered_set>
+	<utility>
+	<vector>
+	<wchar.h>
 )
