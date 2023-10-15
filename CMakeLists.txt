@@ -16,6 +16,9 @@ cmake_minimum_required(VERSION 3.22.0)
 
 project(ImGui VERSION 1.8.8)
 
+# build options
+option(IMGUI_BUILD_STATIC "Build ImGUI statically" ON)
+
 # find path to libraries
 find_package(Vulkan REQUIRED)
 
@@ -25,8 +28,7 @@ include_directories(ImGui Private
 	Vulkan::Headers
 )
 
-# compile libraries
-add_library(ImGui STATIC
+set(IMGUI_SOURCE_FILES
 	"imgui.cpp"
 	"imgui_demo.cpp"
 	"imgui_draw.cpp"
@@ -38,13 +40,20 @@ add_library(ImGui STATIC
 	"misc/cpp/imgui_stdlib.cpp"
 )
 
-target_link_libraries(ImGui 
+# compile library
+if (IMGUI_BUILD_STATIC)
+	add_library(ImGui STATIC "${IMGUI_SOURCE_FILES}")
+else ()
+	add_library(ImGui SHARED "${IMGUI_SOURCE_FILES}")
+endif ()
+
+target_link_libraries (ImGui 
 PRIVATE 
 	Vulkan::Vulkan
 	SDL2
 )
 
-target_precompile_headers(ImGui
+target_precompile_headers (ImGui
 PRIVATE
 	<algorithm>
 	<array>
