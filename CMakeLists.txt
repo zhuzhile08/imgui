@@ -35,8 +35,8 @@ set(IMGUI_SOURCE_FILES
 	"imgui_tables.cpp"
 	"imgui_widgets.cpp"
 	"backends/imgui_impl_vulkan.cpp"
-	"backends/imgui_impl_sdl2.cpp"
-	"backends/imgui_impl_sdlrenderer2.cpp"
+	"backends/imgui_impl_sdl3.cpp"
+	"backends/imgui_impl_sdlrenderer3.cpp"
 	"misc/cpp/imgui_stdlib.cpp"
 )
 
@@ -50,7 +50,7 @@ endif ()
 target_link_libraries (ImGui 
 PRIVATE 
 	Vulkan::Vulkan
-	SDL2
+	SDL3::SDL3-static
 )
 
 target_precompile_headers (ImGui
