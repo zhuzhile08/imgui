@@ -322,8 +322,8 @@ bool ImGui_ImplSDL3_ProcessEvent(const SDL_Event* event)
             return true;
         }
         case SDL_EVENT_DISPLAY_ORIENTATION:
-        case SDL_EVENT_DISPLAY_CONNECTED:
-        case SDL_EVENT_DISPLAY_DISCONNECTED:
+        case SDL_EVENT_DISPLAY_ADDED:
+        case SDL_EVENT_DISPLAY_REMOVED:
         case SDL_EVENT_DISPLAY_MOVED:
         case SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED:
         {
@@ -927,7 +927,7 @@ static int ImGui_ImplSDL3_CreateVkSurface(ImGuiViewport* viewport, ImU64 vk_inst
 {
     ImGui_ImplSDL3_ViewportData* vd = (ImGui_ImplSDL3_ViewportData*)viewport->PlatformUserData;
     (void)vk_allocator;
-    SDL_bool ret = SDL_Vulkan_CreateSurface(vd->Window, (VkInstance)vk_instance, (VkSurfaceKHR*)out_vk_surface);
+    SDL_bool ret = SDL_Vulkan_CreateSurface(vd->Window, (VkInstance)vk_instance, nullptr, (VkSurfaceKHR*)out_vk_surface);
     return ret ? 0 : 1; // ret ? VK_SUCCESS : VK_NOT_READY
 }
 
