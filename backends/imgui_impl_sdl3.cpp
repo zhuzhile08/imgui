@@ -44,7 +44,7 @@
 
 // SDL
 #include <SDL3/SDL.h>
-#include <SDL3/SDL_syswm.h>
+// #include <SDL3/SDL_syswm.h>
 #if defined(__APPLE__)
 #include <TargetConditionals.h>
 #endif
@@ -428,15 +428,15 @@ static bool ImGui_ImplSDL3_Init(SDL_Window* window, SDL_Renderer* renderer, void
     ImGuiViewport* main_viewport = ImGui::GetMainViewport();
     main_viewport->PlatformHandle = (void*)window;
     main_viewport->PlatformHandleRaw = nullptr;
-    SDL_SysWMinfo info;
-    if (SDL_GetWindowWMInfo(window, &info, SDL_SYSWM_CURRENT_VERSION) == 0)
-    {
+    // SDL_SysWMinfo info;
+    // if (SDL_GetWindowWMInfo(window, &info, SDL_SYSWM_CURRENT_VERSION) == 0)
+    // {
 #if defined(SDL_ENABLE_SYSWM_WINDOWS)
         main_viewport->PlatformHandleRaw = (void*)info.info.win.window;
 #elif defined(__APPLE__) && defined(SDL_ENABLE_SYSWM_COCOA)
         main_viewport->PlatformHandleRaw = (void*)info.info.cocoa.window;
 #endif
-    }
+    // }
 
     // From 2.0.5: Set SDL hint to receive mouse click events on window focus, otherwise SDL doesn't emit the event.
     // Without this, when clicking to gain focus, our widgets wouldn't activate even though they showed as hovered.
@@ -626,10 +626,10 @@ static void ImGui_ImplSDL3_UpdateGamepads()
     const int thumb_dead_zone = 8000;           // SDL_gamecontroller.h suggests using this value.
     MAP_BUTTON(ImGuiKey_GamepadStart,           SDL_GAMEPAD_BUTTON_START);
     MAP_BUTTON(ImGuiKey_GamepadBack,            SDL_GAMEPAD_BUTTON_BACK);
-    MAP_BUTTON(ImGuiKey_GamepadFaceLeft,        SDL_GAMEPAD_BUTTON_X);              // Xbox X, PS Square
-    MAP_BUTTON(ImGuiKey_GamepadFaceRight,       SDL_GAMEPAD_BUTTON_B);              // Xbox B, PS Circle
-    MAP_BUTTON(ImGuiKey_GamepadFaceUp,          SDL_GAMEPAD_BUTTON_Y);              // Xbox Y, PS Triangle
-    MAP_BUTTON(ImGuiKey_GamepadFaceDown,        SDL_GAMEPAD_BUTTON_A);              // Xbox A, PS Cross
+    // MAP_BUTTON(ImGuiKey_GamepadFaceLeft,        SDL_GAMEPAD_BUTTON_X);              // Xbox X, PS Square
+    // MAP_BUTTON(ImGuiKey_GamepadFaceRight,       SDL_GAMEPAD_BUTTON_B);              // Xbox B, PS Circle
+    // MAP_BUTTON(ImGuiKey_GamepadFaceUp,          SDL_GAMEPAD_BUTTON_Y);              // Xbox Y, PS Triangle
+    // MAP_BUTTON(ImGuiKey_GamepadFaceDown,        SDL_GAMEPAD_BUTTON_A);              // Xbox A, PS Cross
     MAP_BUTTON(ImGuiKey_GamepadDpadLeft,        SDL_GAMEPAD_BUTTON_DPAD_LEFT);
     MAP_BUTTON(ImGuiKey_GamepadDpadRight,       SDL_GAMEPAD_BUTTON_DPAD_RIGHT);
     MAP_BUTTON(ImGuiKey_GamepadDpadUp,          SDL_GAMEPAD_BUTTON_DPAD_UP);
@@ -792,15 +792,15 @@ static void ImGui_ImplSDL3_CreateWindow(ImGuiViewport* viewport)
 
     viewport->PlatformHandle = (void*)vd->Window;
     viewport->PlatformHandleRaw = nullptr;
-    SDL_SysWMinfo info;
-    if (SDL_GetWindowWMInfo(vd->Window, &info, SDL_SYSWM_CURRENT_VERSION))
-    {
+    // SDL_SysWMinfo info;
+    // if (SDL_GetWindowWMInfo(vd->Window, &info, SDL_SYSWM_CURRENT_VERSION))
+    // {
 #if defined(SDL_VIDEO_DRIVER_WINDOWS)
         viewport->PlatformHandleRaw = info.info.win.window;
 #elif defined(__APPLE__) && defined(SDL_VIDEO_DRIVER_COCOA)
         viewport->PlatformHandleRaw = (void*)info.info.cocoa.window;
 #endif
-    }
+    // }
 }
 
 static void ImGui_ImplSDL3_DestroyWindow(ImGuiViewport* viewport)
