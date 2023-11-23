@@ -24,7 +24,7 @@ find_package(Vulkan REQUIRED)
 
 include_directories(ImGui Private
 	${CMAKE_CURRENT_SOURCE_DIR}
-	${LIBRARY_PATH}/sdl2/include
+	${LIBRARY_PATH}/sdl/include
 	Vulkan::Headers
 )
 
