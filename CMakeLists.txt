@@ -19,13 +19,9 @@ project(ImGui VERSION 1.8.8)
 # build options
 option(IMGUI_BUILD_STATIC "Build ImGUI statically" ON)
 
-# find path to libraries
-find_package(Vulkan REQUIRED)
-
 include_directories(ImGui Private
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${LIBRARY_PATH}/sdl/include
-	Vulkan::Headers
 )
 
 set(IMGUI_SOURCE_FILES
@@ -34,7 +30,6 @@ set(IMGUI_SOURCE_FILES
 	"imgui_draw.cpp"
 	"imgui_tables.cpp"
 	"imgui_widgets.cpp"
-	"backends/imgui_impl_vulkan.cpp"
 	"backends/imgui_impl_sdl3.cpp"
 	"backends/imgui_impl_sdlrenderer3.cpp"
 	"misc/cpp/imgui_stdlib.cpp"
@@ -49,34 +44,38 @@ endif ()
 
 target_link_libraries (ImGui 
 PRIVATE 
-	Vulkan::Vulkan
 	SDL3::SDL3-static
 )
 
-target_precompile_headers (ImGui
+target_precompile_headers(ImGui
 PRIVATE
+    <array>
+    <string>
+    <string_view>
+    <vector>
+    <unordered_set>
+    <unordered_map>
+	<set>
+	<map>
+	<initializer_list>
+	<filesystem>
+	<fstream>
+	<iostream>
+	<typeindex>
+	<type_traits>
 	<algorithm>
-	<array>
 	<chrono>
 	<cmath>
 	<cstdio>
+	<cstdint>
 	<cstdlib>
-	<deque>
-	<filesystem>
-	<fstream>
 	<functional>
-	<iostream>
-	<map>
-	<set>
 	<stddef.h>
 	<stdexcept>
 	<stdint.h>
-	<string>
-	<string_view>
 	<type_traits>
-	<unordered_map>
-	<unordered_set>
 	<utility>
-	<vector>
 	<wchar.h>
+	<memory>
+    <limits>
 )
