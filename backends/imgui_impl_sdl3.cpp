@@ -26,6 +26,10 @@
 // CHANGELOG
 // (minor and older changes stripped away, please see git history for details)
 //  2024-XX-XX: Platform: Added support for multiple windows via the ImGuiPlatformIO interface.
+//  2024-06-26: Update for SDL3 api changes: SDL_StartTextInput()/SDL_StopTextInput()/SDL_SetTextInputRect() functions signatures.
+//  2024-06-24: Update for SDL3 api changes: SDL_EVENT_KEY_DOWN/SDL_EVENT_KEY_UP contents.
+//  2024-06-03; Update for SDL3 api changes: SDL_SYSTEM_CURSOR_ renames.
+//  2024-05-15: Update for SDL3 api changes: SDLK_ renames.
 //  2024-04-15: Inputs: Re-enable calling SDL_StartTextInput()/SDL_StopTextInput() as SDL3 no longer enables it by default and should play nicer with IME.
 //  2024-02-13: Inputs: Fixed gamepad support. Handle gamepad disconnection. Added ImGui_ImplSDL3_SetGamepadMode().
 //  2023-11-13: Updated for recent SDL3 API changes.
@@ -82,6 +86,9 @@ struct ImGui_ImplSDL3_Data
     bool                    UseVulkan;
     bool                    WantUpdateMonitors;
 
+    // IME handling
+    SDL_Window*             ImeWindow;
+
     // Mouse handling
     Uint32                  MouseWindowID;
     int                     MouseButtonsDown;
@@ -131,7 +138,12 @@ static void ImGui_ImplSDL3_SetClipboardText(void*, const char* text)
 static void ImGui_ImplSDL3_SetPlatformImeData(ImGuiViewport* viewport, ImGuiPlatformImeData* data)
 {
     ImGui_ImplSDL3_Data* bd = ImGui_ImplSDL3_GetBackendData();
-
+    SDL_Window* window = (SDL_Window*)viewport->PlatformHandle;
+    if ((data->WantVisible == false || bd->ImeWindow != window) && bd->ImeWindow != NULL)
+    {
+        SDL_StopTextInput(bd->ImeWindow);
+        bd->ImeWindow = nullptr;
+    }
     if (data->WantVisible)
     {
         SDL_Rect r;
@@ -139,12 +151,9 @@ static void ImGui_ImplSDL3_SetPlatformImeData(ImGuiViewport* viewport, ImGuiPlat
         r.y = (int)(data->InputPos.y - viewport->Pos.y + data->InputLineHeight);
         r.w = 1;
         r.h = (int)data->InputLineHeight;
-        SDL_SetTextInputRect(bd->Window, &r);
-        SDL_StartTextInput(bd->Window);
-    }
-    else
-    {
-        SDL_StopTextInput(bd->Window);
+        SDL_SetTextInputRect(window, &r);
+        SDL_StartTextInput(window);
+        bd->ImeWindow = window;
     }
 }
 
